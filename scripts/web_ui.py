@@ -15,6 +15,13 @@ import time
 from pathlib import Path
 from typing import Literal
 
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -799,4 +806,4 @@ if __name__ == "__main__":
     print("🚀 VinBank AI Guardrails UI Playground đang khởi chạy tại:")
     print("👉 http://localhost:8000")
     print("=" * 60 + "\n")
-    uvicorn.run("scripts.web_ui:app", host="127.0.0.1", port=8000, reload=False)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
